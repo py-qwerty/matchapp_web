@@ -210,28 +210,44 @@
     /* Right side pricing */
     .premium-right {
       background:rgba(0,0,0,.2); border-left:1px solid rgba(255,255,255,.06);
-      padding:3rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+      padding:3rem 2rem; display:flex; flex-direction:column; justify-content:center; gap:.6rem;
     }
-    .price-eyebrow { font-size:.72rem; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; }
-    .price-box { margin:1.5rem 0; }
-    .price-free { font-size:3.2rem; font-weight:900; line-height:1; }
-    .price-slash { font-size:.85rem; color:rgba(255,255,255,.45); margin-top:.25rem; }
-    .price-divider { width:80%; height:1px; background:rgba(255,255,255,.08); margin:1.5rem auto; }
-    .price-premium-label { font-size:.78rem; color:rgba(255,255,255,.5); margin-bottom:.4rem; }
-    .price-premium-value { font-size:2.2rem; font-weight:900; color:var(--accent); line-height:1; }
-    .price-premium-period { font-size:.78rem; color:rgba(255,255,255,.4); }
-    .price-features { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center; margin:1.2rem 0; }
-    .price-feat { font-size:.7rem; color:rgba(255,255,255,.55); background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); padding:.2rem .6rem; border-radius:100px; }
-    .price-cta {
-      display:block; width:100%;
+    .price-eyebrow { font-size:.72rem; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; text-align:center; }
+    .pricing-cards { display:flex; flex-direction:column; gap:.9rem; width:100%; }
+    .pricing-card {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+      border-radius:16px; padding:1.2rem 1.4rem; transition:.2s; position:relative;
+    }
+    .pricing-card:hover { border-color:rgba(32,203,133,.4); background:rgba(32,203,133,.06); transform:translateY(-1px); }
+    .pricing-card.featured {
+      background:rgba(32,203,133,.1); border-color:rgba(32,203,133,.5);
+      box-shadow:0 0 0 1px rgba(32,203,133,.3), 0 8px 24px rgba(32,203,133,.12);
+    }
+    .pricing-badge {
+      position:absolute; top:-.65rem; left:50%; transform:translateX(-50%);
       background:linear-gradient(90deg, var(--accent) 0%, var(--soft) 100%);
-      color:var(--primary); padding:.9rem; border-radius:100px;
-      font-weight:800; font-size:.95rem; text-decoration:none; text-align:center;
-      transition:.2s; margin-top:.5rem; font-family:'Poppins',sans-serif;
-      box-shadow:0 6px 20px rgba(32,203,133,.2);
+      color:var(--primary); font-size:.6rem; font-weight:800; padding:.18rem .75rem;
+      border-radius:100px; white-space:nowrap; letter-spacing:.4px; text-transform:uppercase;
     }
-    .price-cta:hover { opacity:.92; transform:translateY(-2px); box-shadow:0 10px 28px rgba(32,203,133,.32); }
-    .price-note { font-size:.7rem; color:rgba(255,255,255,.32); margin-top:.8rem; }
+    .pricing-card-inner { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .pricing-period-label { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:.8px; }
+    .pricing-amount { font-size:1.55rem; font-weight:900; line-height:1.1; margin-top:.15rem; }
+    .pricing-amount.featured-price { color:var(--accent); }
+    .pricing-sub { font-size:.68rem; color:rgba(255,255,255,.38); margin-top:.1rem; }
+    .pricing-save {
+      font-size:.68rem; font-weight:700; padding:.22rem .6rem; border-radius:100px;
+      background:rgba(32,203,133,.15); color:var(--accent); border:1px solid rgba(32,203,133,.25); white-space:nowrap; flex-shrink:0;
+    }
+    .pricing-save.no-save { background:rgba(255,255,255,.05); color:rgba(255,255,255,.28); border-color:rgba(255,255,255,.08); }
+    .pricing-cta {
+      display:block; width:100%; text-align:center; padding:.65rem;
+      background:linear-gradient(90deg, var(--accent), var(--soft));
+      color:var(--primary); border-radius:100px; font-weight:800; font-size:.82rem;
+      text-decoration:none; margin-top:.9rem; font-family:'Poppins',sans-serif;
+      transition:.2s; box-shadow:0 4px 14px rgba(32,203,133,.2);
+    }
+    .pricing-cta:hover { opacity:.9; transform:translateY(-1px); box-shadow:0 8px 20px rgba(32,203,133,.3); }
+    .pricing-footer { text-align:center; font-size:.68rem; color:rgba(255,255,255,.28); margin-top:.2rem; }
     .premium-compare { margin-top:2.5rem; }
     .compare-title { font-size:1rem; font-weight:700; margin-bottom:1.2rem; text-align:center; }
     .compare-table { width:100%; border-collapse:collapse; }
@@ -504,26 +520,51 @@
 
         <!-- RIGHT: pricing -->
         <div class="premium-right">
-          <div class="price-eyebrow">Empieza gratis</div>
-          <div class="price-box">
-            <div class="price-free">Gratis</div>
-            <div class="price-slash">para siempre en funciones básicas</div>
+          <div class="price-eyebrow">Elige tu plan</div>
+          <div class="pricing-cards">
+
+            <!-- Mensual -->
+            <div class="pricing-card">
+              <div class="pricing-card-inner">
+                <div>
+                  <div class="pricing-period-label">Mensual</div>
+                  <div class="pricing-amount">0,49€<span style="font-size:.82rem;font-weight:500;color:rgba(255,255,255,.45)">/mes</span></div>
+                  <div class="pricing-sub">Facturado cada mes</div>
+                </div>
+                <div class="pricing-save no-save">Precio base</div>
+              </div>
+            </div>
+
+            <!-- Trimestral -->
+            <div class="pricing-card">
+              <div class="pricing-card-inner">
+                <div>
+                  <div class="pricing-period-label">Trimestral</div>
+                  <div class="pricing-amount">1,19€<span style="font-size:.82rem;font-weight:500;color:rgba(255,255,255,.45)">/3 meses</span></div>
+                  <div class="pricing-sub">~0,40€/mes</div>
+                </div>
+                <div class="pricing-save">Ahorra 18%</div>
+              </div>
+            </div>
+
+            <!-- Anual — DESTACADO -->
+            <div class="pricing-card featured">
+              <div class="pricing-badge">⭐ Más popular</div>
+              <div class="pricing-card-inner">
+                <div>
+                  <div class="pricing-period-label">Anual</div>
+                  <div class="pricing-amount featured-price">2,99€<span style="font-size:.82rem;font-weight:500;color:rgba(32,203,133,.55)">/año</span></div>
+                  <div class="pricing-sub">~0,25€/mes · precio oficial</div>
+                </div>
+                <div class="pricing-save">Ahorra 49%</div>
+              </div>
+              <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="pricing-cta" target="_blank">
+                Activar Premium
+              </a>
+            </div>
+
           </div>
-          <div class="price-divider"></div>
-          <div class="price-premium-label">Matchapp Premium</div>
-          <div class="price-premium-value">In-app</div>
-          <div class="price-premium-period">suscripción mensual o anual</div>
-          <div class="price-features">
-            <span class="price-feat">Sin anuncios</span>
-            <span class="price-feat">Stats completas</span>
-            <span class="price-feat">Multiperfil ∞</span>
-            <span class="price-feat">Predicciones</span>
-            <span class="price-feat">Notif. ilimitadas</span>
-          </div>
-          <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="price-cta" target="_blank">
-            Descargar y probar gratis
-          </a>
-          <div class="price-note">Premium disponible dentro de la app · Sin compromiso</div>
+          <div class="pricing-footer">Planes gestionados desde la app · Cancela cuando quieras</div>
         </div>
       </div>
     </div>
