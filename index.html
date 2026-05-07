@@ -216,7 +216,7 @@
     .pricing-cards { display:flex; flex-direction:column; gap:.9rem; width:100%; }
     .pricing-card {
       background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-      border-radius:16px; padding:1.2rem 1.4rem; transition:.2s; position:relative;
+      border-radius:16px; padding:1.2rem 1.4rem; transition:.2s; position:relative; z-index:2;
     }
     .pricing-card:hover { border-color:rgba(32,203,133,.4); background:rgba(32,203,133,.06); transform:translateY(-1px); }
     .pricing-card.featured {
@@ -304,7 +304,6 @@
     /* ── RESPONSIVE ── */
     @media (max-width:960px) {
       .hero-grid, .clubs-grid { grid-template-columns:1fr; text-align:center; }
-      .phone-wrap { display:none; }
       .hero-actions, .clubs-actions { justify-content:center; }
       .hero-stats { justify-content:center; }
       .hero-audience { justify-content:center; }
@@ -315,6 +314,9 @@
       .premium-right { border-left:none; border-top:1px solid rgba(255,255,255,.06); }
       nav .nav-links { display:none; }
       .nav-burger { display:flex; }
+    }
+    @media (max-width:768px) {
+      .phone-wrap { display:none; }
     }
     @media (max-width:500px) {
       .stats-inner { grid-template-columns:1fr 1fr; }
