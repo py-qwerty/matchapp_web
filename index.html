@@ -100,40 +100,42 @@
     .hero-audience { margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.08); font-size:.8rem; color:rgba(255,255,255,.4); display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
     .audience-tag { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.09); padding:.2rem .7rem; border-radius:100px; font-size:.72rem; color:rgba(255,255,255,.55); }
 
-    /* ── PHONE ── */
-    .phone-wrap { display:flex; justify-content:center; align-items:center; position:relative; }
-    .phone {
-      width:255px; height:510px;
-      background:linear-gradient(160deg, #0D4A5A 0%, #003B4A 100%);
-      border-radius:38px; border:1.5px solid rgba(255,255,255,.1);
-      box-shadow:0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(32,203,133,.07), inset 0 1px 0 rgba(255,255,255,.05);
-      overflow:hidden; animation:float 5s ease-in-out infinite; position:relative;
+    /* ── MOCKUPS ── */
+    @keyframes float-a { 0%,100%{transform:translateY(0px) rotate(-3deg)} 50%{transform:translateY(-14px) rotate(-3deg)} }
+    @keyframes float-b { 0%,100%{transform:translateY(0px) rotate(2deg)} 50%{transform:translateY(-14px) rotate(2deg)} }
+
+    .phone-wrap {
+      position:relative; display:flex; align-items:center; justify-content:center;
+      height:540px; width:100%;
     }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .phone::before { content:''; position:absolute; top:14px; left:50%; transform:translateX(-50%); width:72px; height:4px; background:rgba(255,255,255,.13); border-radius:2px; z-index:2; }
-    .screen { padding:26px 13px 12px; height:100%; display:flex; flex-direction:column; gap:9px; }
-    .s-header { display:flex; align-items:center; justify-content:space-between; padding:7px 9px; background:rgba(255,255,255,.04); border-radius:11px; }
-    .s-logo { height:16px; object-fit:contain; }
-    .s-badge { width:20px; height:20px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:var(--primary); }
-    .s-tabs { display:flex; gap:5px; }
-    .s-tab { flex:1; padding:5px; border-radius:9px; text-align:center; font-size:7.5px; font-weight:600; cursor:pointer; transition:.2s; background:rgba(255,255,255,.04); color:rgba(255,255,255,.45); }
-    .s-tab.on { background:var(--accent); color:var(--primary); }
-    .s-label { font-size:7.5px; font-weight:600; color:rgba(255,255,255,.38); text-transform:uppercase; letter-spacing:.5px; padding:0 2px; }
-    .s-match { background:rgba(255,255,255,.05); border-radius:12px; padding:9px 10px; border:1px solid rgba(255,255,255,.07); }
-    .s-league { font-size:8px; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; display:flex; align-items:center; gap:4px; }
-    .s-live { background:rgba(32,203,133,.2); color:var(--accent); padding:1px 5px; border-radius:3px; font-size:7px; font-weight:700; }
-    .s-teams { display:flex; align-items:center; justify-content:space-between; }
-    .s-team { display:flex; flex-direction:column; align-items:center; gap:3px; }
-    .s-score { font-size:20px; font-weight:900; text-align:center; }
-    .s-min { font-size:7.5px; color:var(--accent); font-weight:600; text-align:center; }
-    .s-item { display:flex; align-items:center; gap:7px; padding:6px 8px; background:rgba(255,255,255,.03); border-radius:9px; border-left:2px solid var(--accent); }
-    .s-time { font-size:7.5px; color:var(--accent); font-weight:700; min-width:26px; }
-    .s-match-name { font-size:7.5px; color:rgba(255,255,255,.75); font-weight:500; }
-    .s-bottom { margin-top:auto; display:flex; justify-content:space-around; padding:7px 0; border-top:1px solid rgba(255,255,255,.07); }
-    .s-icon { display:flex; flex-direction:column; align-items:center; gap:2px; }
-    .s-icon img { width:17px; height:17px; object-fit:contain; }
-    .s-dot { width:4px; height:4px; border-radius:50%; background:var(--accent); }
-    .phone-halo { position:absolute; bottom:-80px; left:50%; transform:translateX(-50%); width:320px; height:200px; background:radial-gradient(ellipse, rgba(32,203,133,.14) 0%, transparent 70%); pointer-events:none; }
+    .mockup {
+      position:absolute;
+      width:220px;
+      filter:drop-shadow(0 30px 50px rgba(0,0,0,.55));
+    }
+    .mockup img { width:100%; height:auto; display:block; }
+    .mockup-back {
+      left:50%; margin-left:-190px;
+      top:40px;
+      z-index:1;
+      transform:rotate(-3deg);
+      animation:float-a 5.5s ease-in-out infinite;
+      opacity:.88;
+    }
+    .mockup-front {
+      left:50%; margin-left:-50px;
+      top:20px;
+      z-index:2;
+      transform:rotate(2deg);
+      animation:float-b 4.8s ease-in-out infinite;
+      animation-delay:.8s;
+    }
+    .mockup-glow {
+      position:absolute; bottom:-60px; left:50%; transform:translateX(-50%);
+      width:380px; height:180px;
+      background:radial-gradient(ellipse, rgba(32,203,133,.14) 0%, transparent 70%);
+      pointer-events:none; z-index:0;
+    }
 
     /* ── SECTIONS ── */
     section { padding:5.5rem 5%; }
@@ -355,40 +357,13 @@
       </div>
     </div>
     <div class="phone-wrap">
-      <div class="phone">
-        <div class="screen">
-          <div class="s-header">
-            <img src="assets/images/logo.png" alt="Matchapp" class="s-logo" onerror="this.outerHTML='<span style=color:var(--accent);font-weight:800;font-size:10px>Matchapp</span>'" />
-            <div class="s-badge">3</div>
-          </div>
-          <div class="s-tabs">
-            <div class="s-tab on">⚽ Fútbol</div>
-            <div class="s-tab">🏉 Rugby</div>
-            <div class="s-tab">🏐 Vóley</div>
-          </div>
-          <div class="s-label">Agenda del Equipo</div>
-          <div class="s-match">
-            <div class="s-league">Liga Española <span class="s-live">EN DIRECTO</span></div>
-            <div class="s-teams">
-              <div class="s-team"><span style="font-size:18px">🔵</span><span style="font-size:7.5px;font-weight:600;color:rgba(255,255,255,.8)">Barcelona</span></div>
-              <div><div class="s-score">2 · 1</div><div class="s-min">67'</div></div>
-              <div class="s-team"><span style="font-size:18px">⚪</span><span style="font-size:7.5px;font-weight:600;color:rgba(255,255,255,.8)">Madrid</span></div>
-            </div>
-          </div>
-          <div class="s-label">Calendario Oficial</div>
-          <div class="s-item"><div class="s-time">20:00</div><div class="s-match-name">Atlético vs Sevilla</div></div>
-          <div class="s-item"><div class="s-time">22:00</div><div class="s-match-name">Valencia vs Betis</div></div>
-          <div class="s-item" style="border-left-color:var(--teal)"><div class="s-time" style="color:var(--teal)">Dom</div><div class="s-match-name">Villarreal vs Getafe</div></div>
-          <div class="s-bottom">
-            <div class="s-icon"><img src="assets/images/tab_home_active.png" alt="" onerror="this.outerHTML='🏠'" /><div class="s-dot"></div></div>
-            <div class="s-icon"><img src="assets/images/tab_agenda.png" alt="" onerror="this.outerHTML='📅'" style="opacity:.35" /></div>
-            <div class="s-icon"><img src="assets/images/tab_search.png" alt="" onerror="this.outerHTML='🔍'" style="opacity:.35" /></div>
-            <div class="s-icon"><img src="assets/images/tab_star.png" alt="" onerror="this.outerHTML='⭐'" style="opacity:.35" /></div>
-            <div class="s-icon"><img src="assets/images/tab_profile.png" alt="" onerror="this.outerHTML='👤'" style="opacity:.35" /></div>
-          </div>
-        </div>
+      <div class="mockup mockup-back">
+        <img src="assets/images/Matchapp-mockup-1.png" alt="Matchapp clasificación" />
       </div>
-      <div class="phone-halo"></div>
+      <div class="mockup mockup-front">
+        <img src="assets/images/Matchapp-mockup-2.png" alt="Matchapp partido" />
+      </div>
+      <div class="mockup-glow"></div>
     </div>
   </div>
 </section>
