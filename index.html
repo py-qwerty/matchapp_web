@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MatchApp — Tu compañero deportivo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <title>Matchapp — La app líder del fútbol real</title>
+  <meta name="description" content="Matchapp, con más de 1.000.000 de usuarios únicos, agrega toda la información y estadísticas de más de 250.000 partidos al año." />
   <style>
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; background: #003B4A; color: #fff; overflow-x: hidden; }
+    /* ── Fuentes del APK ── */
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-Light.ttf') format('truetype'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-ExtraBold.ttf') format('truetype'); font-weight:800; font-display:swap; }
+    @font-face { font-family:'Poppins'; src:url('assets/fonts/Poppins-Black.ttf') format('truetype'); font-weight:900; font-display:swap; }
 
-    /* ── Tokens ── */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Poppins',sans-serif; background:#003B4A; color:#fff; overflow-x:hidden; }
+
     :root {
       --primary:   #003B4A;
       --secondary: #0D4A5A;
@@ -21,674 +26,638 @@
       --teal:      #148C94;
       --soft:      #1CAC92;
       --light:     #E8F8F3;
-      --gray:      #F5F5F5;
-      --dark-text: #1A1A2E;
-      --sub-text:  #4A5568;
     }
 
-    /* ── Nav ── */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--primary); }
+    ::-webkit-scrollbar-thumb { background:var(--teal); border-radius:3px; }
+
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 5%;
-      background: rgba(0, 59, 74, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(32, 203, 133, 0.12);
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1rem 5%;
+      background:rgba(0,59,74,.92);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(32,203,133,.1);
+      transition:background .3s, border-color .3s;
     }
-    .nav-logo { height: 32px; object-fit: contain; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-logo { height:30px; object-fit:contain; }
+    .nav-logo-text { font-size:1.1rem; font-weight:800; color:var(--accent); display:none; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { color:rgba(255,255,255,.72); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .2s; }
+    .nav-links a:hover { color:var(--accent); }
     .nav-cta {
-      background: var(--accent); color: var(--primary);
-      padding: .55rem 1.4rem; border-radius: 100px;
-      font-weight: 700; font-size: .9rem; text-decoration: none;
-      transition: opacity .2s, transform .2s;
+      background:var(--accent); color:var(--primary);
+      padding:.5rem 1.3rem; border-radius:100px;
+      font-weight:700; font-size:.85rem; text-decoration:none;
+      transition:opacity .2s, transform .2s, box-shadow .2s;
     }
-    .nav-cta:hover { opacity: .9; transform: translateY(-1px); }
-    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; }
-    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: .3s; }
+    .nav-cta:hover { opacity:.9; transform:translateY(-1px); box-shadow:0 6px 20px rgba(32,203,133,.3); }
+    .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav-burger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
 
-    /* ── Hero ── */
+    /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 7rem 5% 4rem;
-      position: relative; overflow: hidden;
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:7rem 5% 4rem; position:relative; overflow:hidden;
     }
     .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(20,140,148,.25) 0%, transparent 70%),
-                  radial-gradient(ellipse 50% 40% at 10% 80%, rgba(32,203,133,.12) 0%, transparent 60%);
+      position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 80% 60% at 72% 50%, rgba(20,140,148,.22) 0%, transparent 65%),
+                 radial-gradient(ellipse 45% 35% at 8% 85%, rgba(32,203,133,.1) 0%, transparent 55%);
     }
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center; max-width: 1100px; width: 100%; position: relative;
+    .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; max-width:1100px; width:100%; position:relative; }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:rgba(32,203,133,.1); border:1px solid rgba(32,203,133,.28);
+      padding:.3rem .85rem; border-radius:100px;
+      font-size:.75rem; font-weight:600; color:var(--accent);
+      margin-bottom:1.1rem; letter-spacing:.3px;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(32,203,133,.12); border: 1px solid rgba(32,203,133,.3);
-      padding: .35rem .9rem; border-radius: 100px;
-      font-size: .8rem; font-weight: 600; color: var(--accent);
-      margin-bottom: 1.2rem;
-    }
-    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
-    .hero-title {
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 900; line-height: 1.1;
-      letter-spacing: -1px;
-    }
-    .hero-title em { font-style: normal; color: var(--accent); }
-    .hero-sub {
-      margin-top: 1.2rem; font-size: 1.05rem; font-weight: 400;
-      color: rgba(255,255,255,.7); line-height: 1.7;
-    }
-    .hero-actions { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-title { font-size:clamp(2.2rem,4.8vw,3.6rem); font-weight:900; line-height:1.1; letter-spacing:-1px; }
+    .hero-title em { font-style:normal; color:var(--accent); }
+    .hero-sub { margin-top:1.1rem; font-size:1rem; color:rgba(255,255,255,.68); line-height:1.75; max-width:480px; }
+    .hero-actions { display:flex; gap:.9rem; margin-top:2rem; flex-wrap:wrap; }
     .btn-primary {
-      background: var(--accent); color: var(--primary);
-      padding: .85rem 2rem; border-radius: 100px; font-weight: 700;
-      text-decoration: none; font-size: 1rem; transition: .2s;
-      display: inline-flex; align-items: center; gap: .5rem;
+      background:var(--accent); color:var(--primary); padding:.8rem 1.8rem; border-radius:100px;
+      font-weight:700; text-decoration:none; font-size:.95rem; transition:.2s;
+      display:inline-flex; align-items:center; gap:.5rem; font-family:'Poppins',sans-serif;
     }
-    .btn-primary:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(32,203,133,.3); }
+    .btn-primary:hover { opacity:.9; transform:translateY(-2px); box-shadow:0 10px 28px rgba(32,203,133,.28); }
     .btn-secondary {
-      background: rgba(255,255,255,.08); color: #fff;
-      padding: .85rem 2rem; border-radius: 100px; font-weight: 600;
-      text-decoration: none; font-size: 1rem;
-      border: 1px solid rgba(255,255,255,.15); transition: .2s;
-      display: inline-flex; align-items: center; gap: .5rem;
+      background:rgba(255,255,255,.07); color:#fff; padding:.8rem 1.8rem; border-radius:100px;
+      font-weight:600; text-decoration:none; font-size:.95rem;
+      border:1px solid rgba(255,255,255,.14); transition:.2s;
+      display:inline-flex; align-items:center; gap:.5rem; font-family:'Poppins',sans-serif;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
-    .hero-stats { display: flex; gap: 2rem; margin-top: 2.5rem; }
-    .stat-item { }
-    .stat-value { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
-    .stat-label { font-size: .78rem; color: rgba(255,255,255,.55); font-weight: 500; margin-top: -.1rem; }
+    .btn-secondary:hover { background:rgba(255,255,255,.13); transform:translateY(-2px); }
+    .hero-stats { display:flex; gap:2.2rem; margin-top:2.5rem; flex-wrap:wrap; }
+    .stat-value { font-size:1.55rem; font-weight:800; color:var(--accent); line-height:1; }
+    .stat-label { font-size:.73rem; color:rgba(255,255,255,.5); font-weight:500; margin-top:.15rem; }
+    .hero-audience { margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.08); font-size:.8rem; color:rgba(255,255,255,.4); display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+    .audience-tag { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.09); padding:.2rem .7rem; border-radius:100px; font-size:.72rem; color:rgba(255,255,255,.55); }
 
-    /* ── Phone mockup ── */
-    .phone-wrap { display: flex; justify-content: center; position: relative; }
+    /* ── PHONE ── */
+    .phone-wrap { display:flex; justify-content:center; align-items:center; position:relative; }
     .phone {
-      width: 260px; height: 520px;
-      background: var(--secondary);
-      border-radius: 36px;
-      border: 2px solid rgba(255,255,255,.12);
-      box-shadow: 0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(32,203,133,.1);
-      position: relative; overflow: hidden;
-      animation: float 5s ease-in-out infinite;
+      width:255px; height:510px;
+      background:linear-gradient(160deg, #0D4A5A 0%, #003B4A 100%);
+      border-radius:38px; border:1.5px solid rgba(255,255,255,.1);
+      box-shadow:0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(32,203,133,.07), inset 0 1px 0 rgba(255,255,255,.05);
+      overflow:hidden; animation:float 5s ease-in-out infinite; position:relative;
     }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-    .phone::before {
-      content: ''; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-      width: 80px; height: 5px; background: rgba(255,255,255,.15); border-radius: 3px; z-index: 2;
-    }
-    .phone-screen { padding: 28px 14px 14px; height: 100%; display: flex; flex-direction: column; gap: 10px; }
-    .phone-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 10px;
-      background: rgba(255,255,255,.05); border-radius: 12px;
-    }
-    .phone-logo { height: 18px; object-fit: contain; }
-    .phone-notif {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--accent); display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 700; color: var(--primary);
-    }
-    .match-card {
-      background: rgba(255,255,255,.06); border-radius: 14px; padding: 10px 12px;
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .match-league { font-size: 9px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
-    .match-teams { display: flex; align-items: center; justify-content: space-between; }
-    .match-team { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .team-icon { font-size: 20px; }
-    .team-name { font-size: 8px; font-weight: 600; color: rgba(255,255,255,.8); }
-    .match-score {
-      font-size: 22px; font-weight: 900; color: #fff;
-      background: rgba(32,203,133,.15); padding: 2px 8px; border-radius: 6px;
-    }
-    .match-time { font-size: 8px; color: var(--accent); font-weight: 600; margin-top: 4px; text-align: center; }
-    .sport-tabs { display: flex; gap: 6px; }
-    .sport-tab {
-      flex: 1; padding: 6px; border-radius: 10px; text-align: center; font-size: 8px;
-      font-weight: 600; cursor: pointer; transition: .2s;
-      background: rgba(255,255,255,.05); color: rgba(255,255,255,.5);
-    }
-    .sport-tab.active { background: var(--accent); color: var(--primary); }
-    .agenda-item {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 10px; background: rgba(255,255,255,.04); border-radius: 10px;
-      border-left: 2px solid var(--accent);
-    }
-    .agenda-time { font-size: 8px; color: var(--accent); font-weight: 700; min-width: 28px; }
-    .agenda-match { font-size: 8px; color: rgba(255,255,255,.8); font-weight: 500; }
-    .bottom-tabs {
-      margin-top: auto;
-      display: flex; justify-content: space-around; align-items: center;
-      padding: 8px 0; border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .tab-icon { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-    .tab-icon img { width: 18px; height: 18px; object-fit: contain; }
-    .tab-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
-    .phone-glow {
-      position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
-      width: 300px; height: 200px;
-      background: radial-gradient(ellipse, rgba(32,203,133,.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .phone::before { content:''; position:absolute; top:14px; left:50%; transform:translateX(-50%); width:72px; height:4px; background:rgba(255,255,255,.13); border-radius:2px; z-index:2; }
+    .screen { padding:26px 13px 12px; height:100%; display:flex; flex-direction:column; gap:9px; }
+    .s-header { display:flex; align-items:center; justify-content:space-between; padding:7px 9px; background:rgba(255,255,255,.04); border-radius:11px; }
+    .s-logo { height:16px; object-fit:contain; }
+    .s-badge { width:20px; height:20px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:var(--primary); }
+    .s-tabs { display:flex; gap:5px; }
+    .s-tab { flex:1; padding:5px; border-radius:9px; text-align:center; font-size:7.5px; font-weight:600; cursor:pointer; transition:.2s; background:rgba(255,255,255,.04); color:rgba(255,255,255,.45); }
+    .s-tab.on { background:var(--accent); color:var(--primary); }
+    .s-label { font-size:7.5px; font-weight:600; color:rgba(255,255,255,.38); text-transform:uppercase; letter-spacing:.5px; padding:0 2px; }
+    .s-match { background:rgba(255,255,255,.05); border-radius:12px; padding:9px 10px; border:1px solid rgba(255,255,255,.07); }
+    .s-league { font-size:8px; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; display:flex; align-items:center; gap:4px; }
+    .s-live { background:rgba(32,203,133,.2); color:var(--accent); padding:1px 5px; border-radius:3px; font-size:7px; font-weight:700; }
+    .s-teams { display:flex; align-items:center; justify-content:space-between; }
+    .s-team { display:flex; flex-direction:column; align-items:center; gap:3px; }
+    .s-score { font-size:20px; font-weight:900; text-align:center; }
+    .s-min { font-size:7.5px; color:var(--accent); font-weight:600; text-align:center; }
+    .s-item { display:flex; align-items:center; gap:7px; padding:6px 8px; background:rgba(255,255,255,.03); border-radius:9px; border-left:2px solid var(--accent); }
+    .s-time { font-size:7.5px; color:var(--accent); font-weight:700; min-width:26px; }
+    .s-match-name { font-size:7.5px; color:rgba(255,255,255,.75); font-weight:500; }
+    .s-bottom { margin-top:auto; display:flex; justify-content:space-around; padding:7px 0; border-top:1px solid rgba(255,255,255,.07); }
+    .s-icon { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .s-icon img { width:17px; height:17px; object-fit:contain; }
+    .s-dot { width:4px; height:4px; border-radius:50%; background:var(--accent); }
+    .phone-halo { position:absolute; bottom:-80px; left:50%; transform:translateX(-50%); width:320px; height:200px; background:radial-gradient(ellipse, rgba(32,203,133,.14) 0%, transparent 70%); pointer-events:none; }
 
-    /* ── Sports ── */
-    .sports {
-      padding: 5rem 5%; background: var(--secondary);
-    }
-    .section-label { color: var(--accent); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-top: .5rem; line-height: 1.2; }
-    .section-sub { color: rgba(255,255,255,.6); font-size: 1rem; margin-top: .6rem; line-height: 1.6; max-width: 540px; }
-    .sports-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem; margin-top: 3rem;
-    }
-    .sport-card {
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 20px; padding: 2rem;
-      transition: .3s; cursor: default; position: relative; overflow: hidden;
-    }
-    .sport-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(32,203,133,.06) 0%, transparent 60%);
-      opacity: 0; transition: .3s;
-    }
-    .sport-card:hover { border-color: rgba(32,203,133,.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
-    .sport-card:hover::before { opacity: 1; }
-    .sport-icon-wrap {
-      width: 64px; height: 64px; border-radius: 16px;
-      background: rgba(32,203,133,.12); display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.2rem;
-    }
-    .sport-icon-wrap img { width: 38px; height: 38px; object-fit: contain; }
-    .sport-name { font-size: 1.25rem; font-weight: 700; }
-    .sport-desc { font-size: .88rem; color: rgba(255,255,255,.6); margin-top: .4rem; line-height: 1.6; }
-    .sport-features { margin-top: 1rem; display: flex; flex-direction: column; gap: .4rem; }
-    .sport-feat { font-size: .8rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: .5rem; }
-    .sport-feat::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    /* ── SECTIONS ── */
+    section { padding:5.5rem 5%; }
+    .wrap { max-width:1100px; margin:0 auto; }
+    .sec-label { color:var(--accent); font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; }
+    .sec-title { font-size:clamp(1.7rem,3.2vw,2.5rem); font-weight:800; margin-top:.4rem; line-height:1.2; }
+    .sec-sub { color:rgba(255,255,255,.58); font-size:.95rem; margin-top:.55rem; line-height:1.7; max-width:520px; }
 
-    /* ── Features ── */
-    .features { padding: 5rem 5%; background: var(--primary); }
-    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
-    .feature-card {
-      background: var(--secondary); border-radius: 20px; padding: 2rem;
-      border: 1px solid rgba(255,255,255,.06); transition: .3s;
-    }
-    .feature-card:hover { border-color: rgba(32,203,133,.2); transform: translateY(-2px); }
-    .feature-card.wide { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
-    .feature-emoji { font-size: 2rem; margin-bottom: .8rem; }
-    .feature-name { font-size: 1.1rem; font-weight: 700; }
-    .feature-desc { font-size: .88rem; color: rgba(255,255,255,.6); margin-top: .4rem; line-height: 1.6; }
-    .feature-visual {
-      height: 160px; border-radius: 14px;
-      background: rgba(255,255,255,.04); display: flex; align-items: center; justify-content: center;
-      border: 1px solid rgba(255,255,255,.06); position: relative; overflow: hidden;
-    }
-    .feature-visual-inner { display: flex; flex-direction: column; gap: .5rem; width: 85%; }
-    .stat-bar-wrap { display: flex; flex-direction: column; gap: 4px; }
-    .stat-bar-label { display: flex; justify-content: space-between; font-size: 9px; color: rgba(255,255,255,.5); }
-    .stat-bar { height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
-    .stat-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--teal), var(--accent)); }
-    .vote-row { display: flex; align-items: center; gap: 6px; }
-    .vote-label { font-size: 9px; color: rgba(255,255,255,.5); min-width: 20px; text-align: center; }
-    .vote-bar { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 4px; overflow: hidden; }
-    .vote-fill-home { height: 100%; border-radius: 4px; background: var(--accent); }
-    .vote-fill-away { height: 100%; border-radius: 4px; background: var(--teal); }
-    .vote-vs { font-size: 8px; font-weight: 700; color: rgba(255,255,255,.3); }
+    /* ── FUNCIONES ── */
+    .s-features { background:var(--secondary); }
+    .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:2.8rem; }
+    .feat { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:18px; padding:1.6rem; transition:.25s; position:relative; overflow:hidden; }
+    .feat::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--teal)); transform:scaleX(0); transform-origin:left; transition:.3s; }
+    .feat:hover { border-color:rgba(32,203,133,.22); transform:translateY(-3px); }
+    .feat:hover::after { transform:scaleX(1); }
+    .feat-icon { width:48px; height:48px; border-radius:13px; background:rgba(32,203,133,.1); display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:1rem; }
+    .feat-name { font-size:1rem; font-weight:700; }
+    .feat-desc { font-size:.82rem; color:rgba(255,255,255,.58); margin-top:.35rem; line-height:1.65; }
 
-    /* ── Premium ── */
-    .premium { padding: 5rem 5%; background: var(--secondary); }
-    .premium-inner {
-      max-width: 900px; margin: 0 auto; text-align: center;
-    }
-    .premium-card {
-      margin-top: 3rem;
-      background: linear-gradient(135deg, rgba(32,203,133,.08) 0%, rgba(20,140,148,.12) 100%);
-      border: 1px solid rgba(32,203,133,.25); border-radius: 28px; padding: 3rem 2rem;
-      position: relative; overflow: hidden;
-    }
-    .premium-card::before {
-      content: ''; position: absolute;
-      top: -60px; right: -60px; width: 200px; height: 200px;
-      border-radius: 50%; background: rgba(32,203,133,.06);
-    }
-    .premium-tag {
-      display: inline-flex; align-items: center; gap: .4rem;
-      background: var(--accent); color: var(--primary);
-      padding: .3rem .9rem; border-radius: 100px; font-size: .8rem; font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .premium-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; }
-    .premium-sub { color: rgba(255,255,255,.65); font-size: .95rem; margin-top: .6rem; }
-    .premium-perks {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1rem; margin: 2rem 0;
-    }
-    .perk {
-      background: rgba(255,255,255,.05); border-radius: 14px; padding: 1.2rem 1rem;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-    .perk-icon { font-size: 1.5rem; margin-bottom: .4rem; }
-    .perk-name { font-size: .85rem; font-weight: 600; }
-    .perk-desc { font-size: .75rem; color: rgba(255,255,255,.5); margin-top: .2rem; }
+    /* ── STATS BAND ── */
+    .stats-band { background:var(--accent); padding:3.5rem 5%; }
+    .stats-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; text-align:center; }
+    .band-val { font-size:2.2rem; font-weight:900; color:var(--primary); line-height:1; }
+    .band-lbl { font-size:.82rem; font-weight:600; color:rgba(0,59,74,.7); margin-top:.3rem; }
 
-    /* ── Download ── */
-    .download { padding: 5rem 5%; background: var(--primary); text-align: center; }
-    .download-inner { max-width: 600px; margin: 0 auto; }
-    .download-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.15; }
-    .download-title em { font-style: normal; color: var(--accent); }
-    .download-sub { color: rgba(255,255,255,.6); font-size: 1rem; margin-top: .8rem; line-height: 1.6; }
-    .store-buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-    .store-btn {
-      display: flex; align-items: center; gap: .8rem;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
-      border-radius: 14px; padding: .85rem 1.5rem; text-decoration: none; color: #fff;
-      transition: .2s; min-width: 165px;
+    /* ── DEPORTES ── */
+    .s-sports { background:var(--primary); }
+    .sports-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:2.8rem; }
+    .sport { background:var(--secondary); border:1px solid rgba(255,255,255,.07); border-radius:20px; padding:1.8rem; transition:.25s; }
+    .sport:hover { border-color:rgba(32,203,133,.25); transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,.3); }
+    .sport-icon-box { width:60px; height:60px; border-radius:14px; background:rgba(32,203,133,.1); display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+    .sport-icon-box img { width:36px; height:36px; object-fit:contain; }
+    .sport-name { font-size:1.15rem; font-weight:700; }
+    .sport-desc { font-size:.82rem; color:rgba(255,255,255,.55); margin-top:.35rem; line-height:1.6; }
+    .pills { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1rem; }
+    .pill { font-size:.7rem; font-weight:600; padding:.22rem .7rem; border-radius:100px; background:rgba(32,203,133,.1); color:var(--accent); border:1px solid rgba(32,203,133,.2); }
+
+    /* ── PREMIUM ── */
+    .s-premium { background:var(--secondary); }
+    .premium-hero {
+      margin-top:2.8rem; border-radius:28px; overflow:hidden;
+      background:linear-gradient(135deg, #0a3d4a 0%, #062e3a 50%, #031f29 100%);
+      border:1px solid rgba(32,203,133,.18);
+      position:relative;
     }
-    .store-btn:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
-    .store-btn-icon { font-size: 1.6rem; }
-    .store-btn-text { text-align: left; }
-    .store-btn-sub { font-size: .7rem; color: rgba(255,255,255,.55); display: block; }
-    .store-btn-name { font-size: .95rem; font-weight: 700; display: block; }
-    .qr-hint { margin-top: 1.5rem; font-size: .8rem; color: rgba(255,255,255,.4); }
-
-    /* ── Footer ── */
-    footer {
-      background: rgba(0,0,0,.3); padding: 2.5rem 5%;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
-      border-top: 1px solid rgba(255,255,255,.06);
+    .premium-hero::before {
+      content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px;
+      border-radius:50%; background:radial-gradient(circle, rgba(32,203,133,.08) 0%, transparent 70%);
     }
-    .footer-logo { display: flex; align-items: center; gap: .8rem; }
-    .footer-logo img { height: 26px; object-fit: contain; }
-    .footer-logo-name { font-size: 1rem; font-weight: 700; }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: .82rem; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--accent); }
-    .footer-copy { font-size: .78rem; color: rgba(255,255,255,.3); }
+    .premium-hero::after {
+      content:''; position:absolute; bottom:-60px; left:-60px; width:300px; height:300px;
+      border-radius:50%; background:radial-gradient(circle, rgba(20,140,148,.08) 0%, transparent 70%);
+    }
+    /* Top banner */
+    .premium-banner {
+      background:linear-gradient(90deg, var(--accent) 0%, var(--soft) 100%);
+      padding:.7rem 2rem; text-align:center; position:relative; z-index:1;
+    }
+    .premium-banner-text { font-size:.82rem; font-weight:700; color:var(--primary); letter-spacing:.3px; }
+    /* Main content */
+    .premium-main { display:grid; grid-template-columns:1fr 1fr; gap:0; position:relative; z-index:1; }
+    .premium-left { padding:3rem 2.5rem; }
+    .premium-tag { display:inline-flex; align-items:center; gap:.4rem; background:rgba(32,203,133,.15); border:1px solid rgba(32,203,133,.25); color:var(--accent); padding:.28rem .85rem; border-radius:100px; font-size:.75rem; font-weight:700; margin-bottom:1.2rem; }
+    .premium-title { font-size:clamp(1.5rem,2.5vw,2.1rem); font-weight:900; line-height:1.15; }
+    .premium-sub { color:rgba(255,255,255,.62); font-size:.92rem; margin-top:.65rem; line-height:1.7; }
+    .perks-list { margin-top:1.8rem; display:flex; flex-direction:column; gap:.85rem; }
+    .perk { display:flex; align-items:flex-start; gap:.85rem; }
+    .perk-check { width:24px; height:24px; border-radius:50%; background:rgba(32,203,133,.15); border:1px solid rgba(32,203,133,.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.7rem; color:var(--accent); margin-top:.05rem; }
+    .perk-body { }
+    .perk-name { font-size:.9rem; font-weight:700; }
+    .perk-desc { font-size:.78rem; color:rgba(255,255,255,.5); margin-top:.1rem; line-height:1.4; }
+    /* Right side pricing */
+    .premium-right {
+      background:rgba(0,0,0,.2); border-left:1px solid rgba(255,255,255,.06);
+      padding:3rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    }
+    .price-eyebrow { font-size:.72rem; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; }
+    .price-box { margin:1.5rem 0; }
+    .price-free { font-size:3.2rem; font-weight:900; line-height:1; }
+    .price-slash { font-size:.85rem; color:rgba(255,255,255,.45); margin-top:.25rem; }
+    .price-divider { width:80%; height:1px; background:rgba(255,255,255,.08); margin:1.5rem auto; }
+    .price-premium-label { font-size:.78rem; color:rgba(255,255,255,.5); margin-bottom:.4rem; }
+    .price-premium-value { font-size:2.2rem; font-weight:900; color:var(--accent); line-height:1; }
+    .price-premium-period { font-size:.78rem; color:rgba(255,255,255,.4); }
+    .price-features { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center; margin:1.2rem 0; }
+    .price-feat { font-size:.7rem; color:rgba(255,255,255,.55); background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); padding:.2rem .6rem; border-radius:100px; }
+    .price-cta {
+      display:block; width:100%;
+      background:linear-gradient(90deg, var(--accent) 0%, var(--soft) 100%);
+      color:var(--primary); padding:.9rem; border-radius:100px;
+      font-weight:800; font-size:.95rem; text-decoration:none; text-align:center;
+      transition:.2s; margin-top:.5rem; font-family:'Poppins',sans-serif;
+      box-shadow:0 6px 20px rgba(32,203,133,.2);
+    }
+    .price-cta:hover { opacity:.92; transform:translateY(-2px); box-shadow:0 10px 28px rgba(32,203,133,.32); }
+    .price-note { font-size:.7rem; color:rgba(255,255,255,.32); margin-top:.8rem; }
+    .premium-compare { margin-top:2.5rem; }
+    .compare-title { font-size:1rem; font-weight:700; margin-bottom:1.2rem; text-align:center; }
+    .compare-table { width:100%; border-collapse:collapse; }
+    .compare-table th { font-size:.78rem; font-weight:700; padding:.6rem 1rem; text-align:center; }
+    .compare-table th:first-child { text-align:left; }
+    .compare-table td { font-size:.8rem; padding:.6rem 1rem; border-top:1px solid rgba(255,255,255,.06); }
+    .compare-table td:first-child { color:rgba(255,255,255,.7); font-weight:500; }
+    .compare-table td:not(:first-child) { text-align:center; }
+    .col-free { color:rgba(255,255,255,.45); font-size:.85rem; }
+    .col-premium { color:var(--accent); font-size:.85rem; font-weight:700; }
+    .th-free { color:rgba(255,255,255,.55); }
+    .th-premium { color:var(--accent); }
+    .check-yes { color:var(--accent); font-size:1rem; }
+    .check-no { color:rgba(255,255,255,.25); font-size:.8rem; }
+    .check-lim { color:rgba(255,200,60,.7); font-size:.75rem; font-weight:600; }
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--primary); }
-    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+    /* ── CLUBS ── */
+    .s-clubs { background:var(--primary); }
+    .clubs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:center; margin-top:2.5rem; }
+    .clubs-card { background:var(--secondary); border:1px solid rgba(255,255,255,.07); border-radius:20px; padding:2rem; }
+    .club-feat { display:flex; gap:.9rem; padding:.9rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .club-feat:last-child { border:none; padding-bottom:0; }
+    .cf-icon { font-size:1.2rem; margin-top:.05rem; flex-shrink:0; }
+    .cf-name { font-size:.9rem; font-weight:600; }
+    .cf-desc { font-size:.78rem; color:rgba(255,255,255,.5); margin-top:.15rem; line-height:1.5; }
+    .clubs-actions { display:flex; gap:.8rem; margin-top:1.8rem; flex-wrap:wrap; }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; }
-      .phone-wrap { display: none; }
-      .hero-actions { justify-content: center; }
-      .hero-stats { justify-content: center; }
-      .sports-grid { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: 1fr; }
-      .feature-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
-      .premium-perks { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: block; }
-      footer { flex-direction: column; gap: 1.2rem; text-align: center; }
-      .footer-links { justify-content: center; }
+    /* ── DOWNLOAD ── */
+    .s-download { background:var(--secondary); text-align:center; }
+    .dl-inner { max-width:600px; margin:0 auto; }
+    .dl-title { font-size:clamp(1.9rem,3.8vw,2.8rem); font-weight:900; line-height:1.15; }
+    .dl-title em { font-style:normal; color:var(--accent); }
+    .dl-sub { color:rgba(255,255,255,.58); font-size:.95rem; margin-top:.75rem; line-height:1.7; }
+    .store-btns { display:flex; gap:1rem; justify-content:center; margin-top:2rem; flex-wrap:wrap; }
+    .store-btn { display:flex; align-items:center; gap:.75rem; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13); border-radius:13px; padding:.8rem 1.4rem; text-decoration:none; color:#fff; transition:.2s; min-width:158px; }
+    .store-btn:hover { background:rgba(255,255,255,.13); transform:translateY(-2px); }
+    .store-sub { font-size:.65rem; color:rgba(255,255,255,.5); display:block; }
+    .store-name { font-size:.9rem; font-weight:700; display:block; }
+    .dl-contact { margin-top:1.8rem; font-size:.8rem; color:rgba(255,255,255,.38); }
+    .dl-contact a { color:rgba(32,203,133,.7); text-decoration:none; }
+    .dl-contact a:hover { color:var(--accent); }
+
+    /* ── FOOTER ── */
+    footer { background:rgba(0,0,0,.35); padding:2rem 5%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; border-top:1px solid rgba(255,255,255,.05); }
+    .footer-brand { display:flex; align-items:center; gap:.7rem; }
+    .footer-brand img { height:24px; object-fit:contain; }
+    .footer-brand-name { font-size:.9rem; font-weight:700; }
+    .footer-sponsor { font-size:.7rem; color:rgba(32,203,133,.5); font-weight:500; }
+    .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .footer-links a { font-size:.78rem; color:rgba(255,255,255,.42); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--accent); }
+    .footer-copy { font-size:.73rem; color:rgba(255,255,255,.28); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:960px) {
+      .hero-grid, .clubs-grid { grid-template-columns:1fr; text-align:center; }
+      .phone-wrap { display:none; }
+      .hero-actions, .clubs-actions { justify-content:center; }
+      .hero-stats { justify-content:center; }
+      .hero-audience { justify-content:center; }
+      .hero-sub, .sec-sub { margin-left:auto; margin-right:auto; }
+      .features-grid, .sports-grid { grid-template-columns:1fr; }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .premium-main { grid-template-columns:1fr; }
+      .premium-right { border-left:none; border-top:1px solid rgba(255,255,255,.06); }
+      nav .nav-links { display:none; }
+      .nav-burger { display:flex; }
+    }
+    @media (max-width:500px) {
+      .stats-inner { grid-template-columns:1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <img
-    src="assets/images/logo.png"
-    alt="MatchApp"
-    class="nav-logo"
-    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-  />
-  <span style="display:none; font-size:1.1rem; font-weight:800; color:var(--accent);">MatchApp</span>
+<!-- NAV -->
+<nav id="nav">
+  <img src="assets/images/logo.png" alt="Matchapp" class="nav-logo"
+       onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'" />
+  <span class="nav-logo-text">Matchapp</span>
   <ul class="nav-links">
-    <li><a href="#deportes">Deportes</a></li>
     <li><a href="#funciones">Funciones</a></li>
+    <li><a href="#deportes">Deportes</a></li>
+    <li><a href="#clubs">Clubs</a></li>
     <li><a href="#premium">Premium</a></li>
-    <li><a href="#descarga">Descargar</a></li>
   </ul>
-  <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="nav-cta" target="_blank">Descargar gratis</a>
-  <button class="nav-hamburger" onclick="document.querySelector('.nav-links').style.display='flex'; document.querySelector('.nav-links').style.flexDirection='column'; document.querySelector('.nav-links').style.position='absolute'; document.querySelector('.nav-links').style.top='60px'; document.querySelector('.nav-links').style.left='0'; document.querySelector('.nav-links').style.right='0'; document.querySelector('.nav-links').style.background='var(--secondary)'; document.querySelector('.nav-links').style.padding='1rem 5%'; document.querySelector('.nav-links').style.gap='1rem';" aria-label="Menú">
+  <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="nav-cta" target="_blank">Ir a Tienda</a>
+  <button class="nav-burger" aria-label="Menú" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid">
     <div>
-      <div class="hero-badge"><span></span>Fútbol · Rugby · Voleibol</div>
-      <h1 class="hero-title">Tu <em>compañero</em> deportivo definitivo</h1>
-      <p class="hero-sub">Resultados en directo, agenda de partidos, estadísticas completas y predicciones para los equipos que sigues. Todo en un solo lugar.</p>
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Patrocinador oficial del fútbol real
+      </div>
+      <h1 class="hero-title">La app <em>líder</em><br/>del fútbol real</h1>
+      <p class="hero-sub">Matchapp agrega toda la información y estadísticas de más de 250.000 partidos al año para los que se emocionan, aman y sienten pasión por el fútbol real.</p>
       <div class="hero-actions">
         <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="btn-primary" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.03-.06l12.05-6.87-2.97-2.98-11.11 9.91zM.65 1.25A2 2 0 0 0 0 2.76v18.48c0 .63.25 1.2.65 1.51L.8 22.9 12.63 11.07v-.29L.8 1.1l-.15.15zM20.38 9.56l-2.79-1.6-3.14 3.14 3.14 3.14 2.82-1.62c.81-.46.81-1.22-.03-1.06z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.03-.06l12.05-6.87-2.97-2.98-11.11 9.91zM.65 1.25A2 2 0 0 0 0 2.76v18.48c0 .63.25 1.2.65 1.51L.8 22.9 12.63 11.07v-.29L.8 1.1l-.15.15zM20.38 9.56l-2.79-1.6-3.14 3.14 3.14 3.14 2.82-1.62c.81-.46.81-1.22-.03-1.06z"/></svg>
           Google Play
         </a>
-        <a href="#descarga" class="btn-secondary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg>
-          App Store
-        </a>
+        <a href="#premium" class="btn-secondary">✦ Ver Premium</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Deportes</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">6.2</div>
-          <div class="stat-label">Versión actual</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">★ 4.8</div>
-          <div class="stat-label">Valoración</div>
-        </div>
+        <div><div class="stat-value">+1M</div><div class="stat-label">Usuarios únicos</div></div>
+        <div><div class="stat-value">+250K</div><div class="stat-label">Partidos al año</div></div>
+        <div><div class="stat-value">3</div><div class="stat-label">Deportes</div></div>
+      </div>
+      <div class="hero-audience">
+        <span>Para:</span>
+        <span class="audience-tag">Futbolistas</span>
+        <span class="audience-tag">Familiares</span>
+        <span class="audience-tag">Entrenadores</span>
+        <span class="audience-tag">Clubes</span>
+        <span class="audience-tag">Árbitros</span>
       </div>
     </div>
-
-    <!-- Phone mockup -->
     <div class="phone-wrap">
       <div class="phone">
-        <div class="phone-screen">
-          <!-- Header -->
-          <div class="phone-header">
-            <img
-              src="assets/images/logo.png"
-              alt="MatchApp" class="phone-logo"
-              onerror="this.outerHTML='<span style=\'color:var(--accent);font-weight:800;font-size:11px;\'>MatchApp</span>'"
-            />
-            <div class="phone-notif">3</div>
+        <div class="screen">
+          <div class="s-header">
+            <img src="assets/images/logo.png" alt="Matchapp" class="s-logo" onerror="this.outerHTML='<span style=color:var(--accent);font-weight:800;font-size:10px>Matchapp</span>'" />
+            <div class="s-badge">3</div>
           </div>
-
-          <!-- Sport tabs -->
-          <div class="sport-tabs">
-            <div class="sport-tab active">⚽ Fútbol</div>
-            <div class="sport-tab">🏉 Rugby</div>
-            <div class="sport-tab">🏐 Voleibol</div>
+          <div class="s-tabs">
+            <div class="s-tab on">⚽ Fútbol</div>
+            <div class="s-tab">🏉 Rugby</div>
+            <div class="s-tab">🏐 Vóley</div>
           </div>
-
-          <!-- Live match -->
-          <div class="match-card">
-            <div class="match-league">🏆 Liga Española · En directo</div>
-            <div class="match-teams">
-              <div class="match-team">
-                <div class="team-icon">🔵</div>
-                <div class="team-name">Barcelona</div>
-              </div>
-              <div style="text-align:center">
-                <div class="match-score">2 · 1</div>
-                <div class="match-time">67'</div>
-              </div>
-              <div class="match-team">
-                <div class="team-icon">⚪</div>
-                <div class="team-name">Madrid</div>
-              </div>
+          <div class="s-label">Agenda del Equipo</div>
+          <div class="s-match">
+            <div class="s-league">Liga Española <span class="s-live">EN DIRECTO</span></div>
+            <div class="s-teams">
+              <div class="s-team"><span style="font-size:18px">🔵</span><span style="font-size:7.5px;font-weight:600;color:rgba(255,255,255,.8)">Barcelona</span></div>
+              <div><div class="s-score">2 · 1</div><div class="s-min">67'</div></div>
+              <div class="s-team"><span style="font-size:18px">⚪</span><span style="font-size:7.5px;font-weight:600;color:rgba(255,255,255,.8)">Madrid</span></div>
             </div>
           </div>
-
-          <!-- Agenda items -->
-          <div class="agenda-item">
-            <div class="agenda-time">20:00</div>
-            <div class="agenda-match">Atlético vs Sevilla</div>
-          </div>
-          <div class="agenda-item">
-            <div class="agenda-time">22:00</div>
-            <div class="agenda-match">Valencia vs Betis</div>
-          </div>
-          <div class="agenda-item" style="border-left-color: var(--teal);">
-            <div class="agenda-time" style="color:var(--teal);">Dom</div>
-            <div class="agenda-match">Real Sociedad vs Villarreal</div>
-          </div>
-
-          <!-- Bottom tabs -->
-          <div class="bottom-tabs">
-            <div class="tab-icon">
-              <img src="assets/images/tab_home_active.png" alt="Inicio" onerror="this.outerHTML='🏠'" />
-              <div class="tab-dot"></div>
-            </div>
-            <div class="tab-icon">
-              <img src="assets/images/tab_agenda.png" alt="Agenda" onerror="this.outerHTML='📅'" style="opacity:.4" />
-            </div>
-            <div class="tab-icon">
-              <img src="assets/images/tab_search.png" alt="Buscar" onerror="this.outerHTML='🔍'" style="opacity:.4" />
-            </div>
-            <div class="tab-icon">
-              <img src="assets/images/tab_star.png" alt="Favoritos" onerror="this.outerHTML='⭐'" style="opacity:.4" />
-            </div>
-            <div class="tab-icon">
-              <img src="assets/images/tab_profile.png" alt="Perfil" onerror="this.outerHTML='👤'" style="opacity:.4" />
-            </div>
+          <div class="s-label">Calendario Oficial</div>
+          <div class="s-item"><div class="s-time">20:00</div><div class="s-match-name">Atlético vs Sevilla</div></div>
+          <div class="s-item"><div class="s-time">22:00</div><div class="s-match-name">Valencia vs Betis</div></div>
+          <div class="s-item" style="border-left-color:var(--teal)"><div class="s-time" style="color:var(--teal)">Dom</div><div class="s-match-name">Villarreal vs Getafe</div></div>
+          <div class="s-bottom">
+            <div class="s-icon"><img src="assets/images/tab_home_active.png" alt="" onerror="this.outerHTML='🏠'" /><div class="s-dot"></div></div>
+            <div class="s-icon"><img src="assets/images/tab_agenda.png" alt="" onerror="this.outerHTML='📅'" style="opacity:.35" /></div>
+            <div class="s-icon"><img src="assets/images/tab_search.png" alt="" onerror="this.outerHTML='🔍'" style="opacity:.35" /></div>
+            <div class="s-icon"><img src="assets/images/tab_star.png" alt="" onerror="this.outerHTML='⭐'" style="opacity:.35" /></div>
+            <div class="s-icon"><img src="assets/images/tab_profile.png" alt="" onerror="this.outerHTML='👤'" style="opacity:.35" /></div>
           </div>
         </div>
       </div>
-      <div class="phone-glow"></div>
+      <div class="phone-halo"></div>
     </div>
   </div>
 </section>
 
-<!-- ── DEPORTES ── -->
-<section class="sports" id="deportes">
-  <div style="max-width:1100px; margin:0 auto;">
-    <div class="section-label">Deportes</div>
-    <h2 class="section-title">Todo tu deporte,<br/>un solo lugar</h2>
-    <p class="section-sub">Sigue tus equipos favoritos en tres deportes con datos en tiempo real y estadísticas detalladas.</p>
+<!-- FUNCIONES -->
+<section class="s-features" id="funciones">
+  <div class="wrap">
+    <div class="sec-label">Funciones</div>
+    <h2 class="sec-title">Todo lo que necesitas</h2>
+    <p class="sec-sub">Datos oficiales de las federaciones, directo en tu bolsillo.</p>
+    <div class="features-grid">
+      <div class="feat"><div class="feat-icon">📅</div><div class="feat-name">Calendario Oficial</div><div class="feat-desc">Agenda actualizada con los partidos de tus equipos esta temporada.</div></div>
+      <div class="feat"><div class="feat-icon">🏆</div><div class="feat-name">Resultados y Clasificaciones</div><div class="feat-desc">Datos oficiales de las federaciones actualizados en tiempo real.</div></div>
+      <div class="feat"><div class="feat-icon">👥</div><div class="feat-name">Multiperfil</div><div class="feat-desc">Gestiona todos tus equipos desde una sola cuenta.</div></div>
+      <div class="feat"><div class="feat-icon">🔔</div><div class="feat-name">Notificaciones</div><div class="feat-desc">Información de cambios en los calendarios de los partidos al instante.</div></div>
+      <div class="feat"><div class="feat-icon">📍</div><div class="feat-name">Localizador</div><div class="feat-desc">Ruta GPS a cada terreno de juego. Nunca más te perderás buscando el campo.</div></div>
+      <div class="feat"><div class="feat-icon">⚽</div><div class="feat-name">Agenda del Equipo</div><div class="feat-desc">Todos los partidos de la jornada de tu equipo en un solo vistazo.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div><div class="band-val">+1M</div><div class="band-lbl">Instalaciones</div></div>
+    <div><div class="band-val">+250K</div><div class="band-lbl">Partidos al año</div></div>
+    <div><div class="band-val js-count" data-target="5000">0</div><div class="band-lbl">Competiciones</div></div>
+    <div><div class="band-val js-count" data-target="80000">0</div><div class="band-lbl">Equipos</div></div>
+  </div>
+</div>
+
+<!-- DEPORTES -->
+<section class="s-sports" id="deportes">
+  <div class="wrap">
+    <div class="sec-label">Deportes</div>
+    <h2 class="sec-title">Fútbol, Rugby y Voleibol</h2>
+    <p class="sec-sub">Selecciona un deporte y sigue a tus equipos favoritos con datos completos de cada competición.</p>
     <div class="sports-grid">
-      <div class="sport-card">
-        <div class="sport-icon-wrap">
-          <img src="assets/images/football.png" alt="Fútbol" onerror="this.outerHTML='<span style=\'font-size:2rem\'>⚽</span>'" />
-        </div>
+      <div class="sport">
+        <div class="sport-icon-box"><img src="assets/images/football.png" alt="Fútbol" onerror="this.outerHTML='<span style=font-size:1.8rem>⚽</span>'" /></div>
         <div class="sport-name">Fútbol</div>
-        <div class="sport-desc">Resultados, clasificaciones, estadísticas de partido y alineaciones de las principales ligas.</div>
-        <div class="sport-features">
-          <div class="sport-feat">Resultados en directo</div>
-          <div class="sport-feat">Clasificaciones actualizadas</div>
-          <div class="sport-feat">Estadísticas de goles</div>
-          <div class="sport-feat">Datos por jornada</div>
-        </div>
+        <div class="sport-desc">Resultados, clasificaciones y estadísticas de las principales ligas y federaciones. Fútbol real para aficionados reales.</div>
+        <div class="pills"><span class="pill">Resultados</span><span class="pill">Clasificaciones</span><span class="pill">Goleadores</span><span class="pill">Jornadas</span></div>
       </div>
-      <div class="sport-card">
-        <div class="sport-icon-wrap">
-          <img src="assets/images/rugby.png" alt="Rugby" onerror="this.outerHTML='<span style=\'font-size:2rem\'>🏉</span>'" />
-        </div>
+      <div class="sport">
+        <div class="sport-icon-box"><img src="assets/images/rugby.png" alt="Rugby" onerror="this.outerHTML='<span style=font-size:1.8rem>🏉</span>'" /></div>
         <div class="sport-name">Rugby</div>
-        <div class="sport-desc">Partidos, equipos y clasificaciones de las competiciones de rugby que más te interesan.</div>
-        <div class="sport-features">
-          <div class="sport-feat">Marcadores por cuarto</div>
-          <div class="sport-feat">Tabla de clasificación</div>
-          <div class="sport-feat">Agenda de partidos</div>
-          <div class="sport-feat">Historial de resultados</div>
-        </div>
+        <div class="sport-desc">Partidos, equipos y clasificaciones de las competiciones de rugby que más te interesan, siempre actualizadas.</div>
+        <div class="pills"><span class="pill">Marcadores</span><span class="pill">Tabla</span><span class="pill">Agenda</span><span class="pill">Historial</span></div>
       </div>
-      <div class="sport-card">
-        <div class="sport-icon-wrap">
-          <img src="assets/images/volleyball.png" alt="Voleibol" onerror="this.outerHTML='<span style=\'font-size:2rem\'>🏐</span>'" />
-        </div>
+      <div class="sport">
+        <div class="sport-icon-box"><img src="assets/images/volleyball.png" alt="Voleibol" onerror="this.outerHTML='<span style=font-size:1.8rem>🏐</span>'" /></div>
         <div class="sport-name">Voleibol</div>
-        <div class="sport-desc">Sigue la acción del voleibol con resultados por sets, clasificaciones y datos de equipo.</div>
-        <div class="sport-features">
-          <div class="sport-feat">Resultados por sets</div>
-          <div class="sport-feat">Clasificación de ligas</div>
-          <div class="sport-feat">Próximos partidos</div>
-          <div class="sport-feat">Equipos favoritos</div>
+        <div class="sport-desc">Sigue la acción del voleibol con resultados por sets, clasificaciones completas y datos de equipo.</div>
+        <div class="pills"><span class="pill">Sets</span><span class="pill">Ligas</span><span class="pill">Próximos</span><span class="pill">Equipos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM -->
+<section class="s-premium" id="premium">
+  <div class="wrap">
+    <div class="sec-label">Premium</div>
+    <h2 class="sec-title">Matchapp sin límites</h2>
+    <p class="sec-sub">Para los que viven el fútbol real de verdad.</p>
+
+    <div class="premium-hero">
+      <div class="premium-banner">
+        <div class="premium-banner-text">✦ Más de 1.000.000 de usuarios ya confían en Matchapp · Únete ahora ✦</div>
+      </div>
+      <div class="premium-main">
+        <!-- LEFT: perks -->
+        <div class="premium-left">
+          <div class="premium-tag">✦ Matchapp Premium</div>
+          <div class="premium-title">La experiencia completa del fútbol real</div>
+          <div class="premium-sub">Desbloquea todo el potencial de Matchapp. Sin anuncios, sin restricciones, con todos los datos.</div>
+          <div class="perks-list">
+            <div class="perk">
+              <div class="perk-check">✓</div>
+              <div class="perk-body">
+                <div class="perk-name">Sin anuncios</div>
+                <div class="perk-desc">Experiencia completamente limpia. Cero interrupciones.</div>
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-check">✓</div>
+              <div class="perk-body">
+                <div class="perk-name">Estadísticas avanzadas</div>
+                <div class="perk-desc">Acceso completo a todos los datos de partido, jornada y temporada.</div>
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-check">✓</div>
+              <div class="perk-body">
+                <div class="perk-name">Multiperfil ilimitado</div>
+                <div class="perk-desc">Sigue todos tus equipos en todos los deportes sin límite.</div>
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-check">✓</div>
+              <div class="perk-body">
+                <div class="perk-name">Notificaciones ilimitadas</div>
+                <div class="perk-desc">Avisos de todos tus clubes y equipos favoritos.</div>
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-check">✓</div>
+              <div class="perk-body">
+                <div class="perk-name">Predicciones y votos</div>
+                <div class="perk-desc">Participa en cada jornada y compara tu predicción con la comunidad.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Compare table -->
+          <div class="premium-compare">
+            <div class="compare-title">Gratis vs Premium</div>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="th-free">Gratis</th>
+                  <th class="th-premium">Premium</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Calendario oficial</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                <tr><td>Resultados y clasificaciones</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                <tr><td>Notificaciones de equipos</td><td><span class="check-lim">Limitado</span></td><td><span class="check-yes">✓ Ilimitado</span></td></tr>
+                <tr><td>Multiperfil de equipos</td><td><span class="check-lim">Limitado</span></td><td><span class="check-yes">✓ Ilimitado</span></td></tr>
+                <tr><td>Estadísticas avanzadas</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+                <tr><td>Predicciones y votos</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+                <tr><td>Sin anuncios</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RIGHT: pricing -->
+        <div class="premium-right">
+          <div class="price-eyebrow">Empieza gratis</div>
+          <div class="price-box">
+            <div class="price-free">Gratis</div>
+            <div class="price-slash">para siempre en funciones básicas</div>
+          </div>
+          <div class="price-divider"></div>
+          <div class="price-premium-label">Matchapp Premium</div>
+          <div class="price-premium-value">In-app</div>
+          <div class="price-premium-period">suscripción mensual o anual</div>
+          <div class="price-features">
+            <span class="price-feat">Sin anuncios</span>
+            <span class="price-feat">Stats completas</span>
+            <span class="price-feat">Multiperfil ∞</span>
+            <span class="price-feat">Predicciones</span>
+            <span class="price-feat">Notif. ilimitadas</span>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="price-cta" target="_blank">
+            Descargar y probar gratis
+          </a>
+          <div class="price-note">Premium disponible dentro de la app · Sin compromiso</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FUNCIONES ── -->
-<section class="features" id="funciones">
-  <div style="max-width:1100px; margin:0 auto; text-align:center;">
-    <div class="section-label">Funciones</div>
-    <h2 class="section-title">Todo lo que necesitas</h2>
-    <p class="section-sub" style="margin:0 auto;">Desde la agenda hasta las estadísticas avanzadas, MatchApp lo tiene todo.</p>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-emoji">📅</div>
-      <div class="feature-name">Agenda personalizada</div>
-      <div class="feature-desc">Todos los partidos de tus equipos en un calendario inteligente. Nunca te pierdas un encuentro.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-emoji">🔔</div>
-      <div class="feature-name">Notificaciones en directo</div>
-      <div class="feature-desc">Goles, tarjetas, resultados finales. Recibe alertas instantáneas de los momentos clave.</div>
-    </div>
-    <div class="feature-card wide">
+<!-- CLUBS -->
+<section class="s-clubs" id="clubs">
+  <div class="wrap">
+    <div class="clubs-grid">
       <div>
-        <div class="feature-emoji">📊</div>
-        <div class="feature-name">Estadísticas completas</div>
-        <div class="feature-desc">Profundiza en cada partido con estadísticas detalladas: posesión, tiros, faltas, alineaciones y enfrentamientos directos.</div>
-      </div>
-      <div class="feature-visual">
-        <div class="feature-visual-inner">
-          <div class="stat-bar-wrap">
-            <div class="stat-bar-label"><span>Posesión</span><span>62%</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill" style="width:62%"></div></div>
-          </div>
-          <div class="stat-bar-wrap">
-            <div class="stat-bar-label"><span>Tiros a puerta</span><span>8</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill" style="width:80%"></div></div>
-          </div>
-          <div class="stat-bar-wrap">
-            <div class="stat-bar-label"><span>Pases completados</span><span>435</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill" style="width:74%"></div></div>
-          </div>
-          <div class="stat-bar-wrap">
-            <div class="stat-bar-label"><span>Faltas</span><span>11</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill" style="width:45%"></div></div>
-          </div>
+        <div class="sec-label">Clubs</div>
+        <h2 class="sec-title">Soluciones para clubes y federaciones</h2>
+        <p class="sec-sub">Matchapp ofrece herramientas específicas para clubes, entrenadores y árbitros. Gestiona tu club, comunica novedades y llega a tus aficionados donde están.</p>
+        <div class="clubs-actions">
+          <a href="mailto:marketing@matchapp.es" class="btn-primary">¡Anúnciate en Matchapp!</a>
+          <a href="mailto:soporte@matchapp.es" class="btn-secondary">Contáctanos</a>
         </div>
       </div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-emoji">🔮</div>
-      <div class="feature-name">Predicciones y votos</div>
-      <div class="feature-desc">Vota el resultado antes del partido y compara tu predicción con la comunidad.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-emoji">⭐</div>
-      <div class="feature-name">Sigue tus equipos</div>
-      <div class="feature-desc">Añade tus equipos favoritos y recibe toda su información priorizada en tu feed.</div>
+      <div class="clubs-card">
+        <div class="club-feat"><div class="cf-icon">📢</div><div><div class="cf-name">Notificaciones de clubs</div><div class="cf-desc">Envía avisos directos a los seguidores sobre cambios de horario, convocatorias y novedades.</div></div></div>
+        <div class="club-feat"><div class="cf-icon">📊</div><div><div class="cf-name">Estadísticas oficiales</div><div class="cf-desc">Datos oficiales de federación integrados automáticamente. Sin trabajo manual.</div></div></div>
+        <div class="club-feat"><div class="cf-icon">📍</div><div><div class="cf-name">Localizador de campos</div><div class="cf-desc">Ruta GPS a cada terreno para jugadores, familias y árbitros.</div></div></div>
+        <div class="club-feat"><div class="cf-icon">📣</div><div><div class="cf-name">Publicidad en la app</div><div class="cf-desc">Más de 1.000.000 de usuarios únicos. Llega a tu audiencia con campañas segmentadas.</div></div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── PREMIUM ── -->
-<section class="premium" id="premium">
-  <div class="premium-inner">
-    <div class="section-label" style="text-align:center;">Premium</div>
-    <h2 class="section-title" style="text-align:center;">Lleva tu experiencia<br/>al siguiente nivel</h2>
-    <div class="premium-card">
-      <div class="premium-tag">✦ MatchApp Premium</div>
-      <div class="premium-title">Sin límites, sin interrupciones</div>
-      <div class="premium-sub">Accede a todas las funciones avanzadas y disfruta de la app sin anuncios.</div>
-      <div class="premium-perks">
-        <div class="perk">
-          <div class="perk-icon">🚫</div>
-          <div class="perk-name">Sin anuncios</div>
-          <div class="perk-desc">Experiencia completamente libre de publicidad</div>
-        </div>
-        <div class="perk">
-          <div class="perk-icon">📈</div>
-          <div class="perk-name">Estadísticas avanzadas</div>
-          <div class="perk-desc">Acceso completo a todos los datos y métricas</div>
-        </div>
-        <div class="perk">
-          <div class="perk-icon">🔔</div>
-          <div class="perk-name">Alertas ilimitadas</div>
-          <div class="perk-desc">Notificaciones para todos tus equipos sin restricciones</div>
-        </div>
-      </div>
-      <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="btn-primary" style="margin:0 auto; width:fit-content;" target="_blank">
-        Probar Premium gratis
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ── DESCARGA ── -->
-<section class="download" id="descarga">
-  <div class="download-inner">
-    <h2 class="download-title">Descarga <em>MatchApp</em> ahora</h2>
-    <p class="download-sub">Disponible gratis en Google Play y App Store. Empieza a seguir tus equipos en segundos.</p>
-    <div class="store-buttons">
+<!-- DESCARGA -->
+<section class="s-download" id="descarga">
+  <div class="dl-inner">
+    <h2 class="dl-title">Descarga <em>Matchapp</em></h2>
+    <p class="dl-sub">Disponible gratis en Google Play y App Store. Más de 1.000.000 de usuarios ya siguen a sus equipos con Matchapp.</p>
+    <div class="store-btns">
       <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" class="store-btn" target="_blank">
-        <div class="store-btn-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.03-.06l12.05-6.87-2.97-2.98-11.11 9.91zM.65 1.25A2 2 0 0 0 0 2.76v18.48c0 .63.25 1.2.65 1.51L.8 22.9 12.63 11.07v-.29L.8 1.1l-.15.15zM20.38 9.56l-2.79-1.6-3.14 3.14 3.14 3.14 2.82-1.62c.81-.46.81-1.22-.03-1.06z"/></svg>
-        </div>
-        <div class="store-btn-text">
-          <span class="store-btn-sub">Disponible en</span>
-          <span class="store-btn-name">Google Play</span>
-        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.03-.06l12.05-6.87-2.97-2.98-11.11 9.91zM.65 1.25A2 2 0 0 0 0 2.76v18.48c0 .63.25 1.2.65 1.51L.8 22.9 12.63 11.07v-.29L.8 1.1l-.15.15zM20.38 9.56l-2.79-1.6-3.14 3.14 3.14 3.14 2.82-1.62c.81-.46.81-1.22-.03-1.06z"/></svg>
+        <div><span class="store-sub">Disponible en</span><span class="store-name">Google Play</span></div>
       </a>
       <a href="#" class="store-btn">
-        <div class="store-btn-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg>
-        </div>
-        <div class="store-btn-text">
-          <span class="store-btn-sub">Próximamente en</span>
-          <span class="store-btn-name">App Store</span>
-        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg>
+        <div><span class="store-sub">Próximamente en</span><span class="store-name">App Store</span></div>
       </a>
     </div>
-    <div class="qr-hint">Escanea el código QR en Google Play o busca "MatchApp" en tu tienda</div>
+    <div class="dl-contact">
+      Soporte: <a href="mailto:soporte@matchapp.es">soporte@matchapp.es</a>
+      &nbsp;·&nbsp;
+      Marketing: <a href="mailto:marketing@matchapp.es">marketing@matchapp.es</a>
+    </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <img
-      src="assets/images/logo.png"
-      alt="MatchApp"
-      onerror="this.style.display='none'"
-    />
-    <span class="footer-logo-name">MatchApp</span>
+  <div class="footer-brand">
+    <img src="assets/images/logo.png" alt="Matchapp" onerror="this.style.display='none'" />
+    <div>
+      <div class="footer-brand-name">Matchapp</div>
+      <div class="footer-sponsor">Patrocinador oficial del fútbol real</div>
+    </div>
   </div>
   <div class="footer-links">
-    <a href="#">Privacidad</a>
-    <a href="#">Términos</a>
-    <a href="#">Contacto</a>
-    <a href="https://play.google.com/store/apps/details?id=com.justteamup.matchapp" target="_blank">Descargar</a>
+    <a href="#">Política de privacidad</a>
+    <a href="#">Términos y condiciones</a>
+    <a href="mailto:soporte@matchapp.es">soporte@matchapp.es</a>
+    <a href="https://www.instagram.com/matchapp_es/" target="_blank">Instagram</a>
   </div>
-  <div class="footer-copy">© 2026 JustTeamUp · com.justteamup.matchapp</div>
+  <div class="footer-copy">© 2026 Matchapp S.L.</div>
 </footer>
 
 <script>
-  // Nav scroll effect
-  const nav = document.querySelector('nav');
+  const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    nav.style.borderBottomColor = window.scrollY > 40
-      ? 'rgba(32,203,133,0.2)'
-      : 'rgba(32,203,133,0.12)';
-  });
+    nav.style.background = window.scrollY > 50 ? 'rgba(0,59,74,.97)' : 'rgba(0,59,74,.92)';
+  }, { passive:true });
 
-  // Sport tab switching in phone mockup
-  document.querySelectorAll('.sport-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.sport-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    const open = links.dataset.open === '1';
+    if (open) {
+      links.removeAttribute('style'); links.dataset.open = '0';
+    } else {
+      Object.assign(links.style, { display:'flex', flexDirection:'column', position:'absolute', top:'62px', left:'0', right:'0', background:'rgba(0,59,74,.97)', padding:'1rem 5%', gap:'1rem', borderBottom:'1px solid rgba(32,203,133,.1)' });
+      links.dataset.open = '1';
+    }
+  }
+
+  document.querySelectorAll('.s-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.s-tab').forEach(x => x.classList.remove('on'));
+      t.classList.add('on');
     });
   });
 
-  // Animate stat bars on scroll
+  // Counter animation
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.stat-bar-fill').forEach(bar => {
-          const w = bar.style.width;
-          bar.style.width = '0';
-          setTimeout(() => { bar.style.transition = 'width 1s ease'; bar.style.width = w; }, 100);
-        });
-        observer.unobserve(entry.target);
-      }
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, target = +el.dataset.target, t0 = performance.now();
+      const tick = now => {
+        const p = Math.min((now - t0) / 1800, 1);
+        el.textContent = Math.round((1 - Math.pow(1-p,3)) * target).toLocaleString('es') + '+';
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      observer.unobserve(el);
     });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.feature-visual').forEach(el => observer.observe(el));
+  }, { threshold:.5 });
+  document.querySelectorAll('.js-count').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
